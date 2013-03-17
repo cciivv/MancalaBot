@@ -105,11 +105,10 @@ class MancalaGame(object):
         if last == 1 and loc in self.mat.get_move_options(player):
             opp = self.mat.get_opposite(loc)
             if self.mat.board[opp] != 0:
-                print "Super Grab!"
                 jackpot = self.mat.grab_pit(opp) + self.mat.grab_pit(loc)
+                print "Super Grab! %s gets %d points!" % (self.players[player], jackpot)
                 self.mat.put(self.mat.get_stash_loc(player),jackpot)
         if loc == self.mat.get_stash_loc(player):
-            print "%s gets to go again!" % self.players[player]
             return 1
         else:
             return 0      
@@ -118,12 +117,14 @@ class MancalaGame(object):
         while not (self.mat.is_game_over()):
             pid = self.turn % self.mat.max_players
             while True:
+                print "====== %s'S TURN ======" % (self.players[0].name.upper())
                 move = self.players[pid].make_move(self.mat, pid)
-                print self.mat.get_move_options(pid)
                 if move in self.mat.get_move_options(pid):
                     extra = self.move_pieces(move, pid)
                     if  extra <= 0 or len(self.mat.get_move_options(pid)) == 0:
                         break
+                    else:
+                        print "%s gets to go again!" % self.players[pid]
                 else:
                     print "Invalid Move"
             self.turn += 1
