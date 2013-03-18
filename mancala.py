@@ -117,7 +117,7 @@ class MancalaGame(object):
         while not (self.mat.is_game_over()):
             pid = self.turn % self.mat.max_players
             while True:
-                print "====== %s'S TURN ======" % (self.players[0].name.upper())
+                print "====== %s'S TURN ======" % (self.players[pid].name.upper())
                 move = self.players[pid].make_move(self.mat, pid)
                 if move in self.mat.get_move_options(pid):
                     extra = self.move_pieces(move, pid)
